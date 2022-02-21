@@ -3,28 +3,19 @@ package ru.dmitruk.library.configs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-import org.springframework.security.web.util.matcher.AndRequestMatcher;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import ru.dmitruk.library.models.Permission;
-import ru.dmitruk.library.models.Role;
+
 
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity(debug = true)
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -37,53 +28,59 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder(12);
+        return new BCryptPasswordEncoder(12)
+//        {
+//            @Override
+//            public String encode(CharSequence charSequence) {
+//                return charSequence.toString();
+//            }
+//
+//            @Override
+//            public boolean matches(CharSequence rawPassword, String hashedPassword) {
+//                String hashedPassword2 = encode(rawPassword); // hash your rawPassword here
+//                return hashedPassword2.equals(hashedPassword);
+//            }
+//        }
+        ;
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf()
-                .disable()
-                .exceptionHandling();
-               http.authorizeRequests()
+                .csrf().disable()
+                .authorizeRequests()
                 .antMatchers("/").permitAll()
-                .anyRequest()
-                .authenticated()
+                .antMatchers("/about").permitAll()
+//                .anyRequest()
+//                .authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/auth/login").permitAll()
-                .defaultSuccessUrl("/auth/success")
+//                .loginPage("/login").permitAll()
+                .defaultSuccessUrl("/success_login")
                 .and()
                 .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout", "POST"))
-                .invalidateHttpSession(true )
-                .clearAuthentication(true)
-                .clearAuthentication(true)
-                .deleteCookies("JSESSIONID")
-                .logoutSuccessUrl("/auth/login");
+                .logoutSuccessUrl("/success_logout");
+//                .clearAuthentication(true)
+//                .deleteCookies("JSESSIONID");
 
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        System.out.println(daoAuthenticationProvider());
         auth.authenticationProvider(daoAuthenticationProvider());
     }
+
+
     //    @Override
 //    protected UserDetailsService userDetailsService() {
-////        System.out.println(bCryptPasswordEncoder().encode("kaka"));
+////        System.out.println(bCryp.antMatchers(HttpMethod.POST, "/registrationClient").permitAll()tPasswordEncoder().encode("aaaaa"));
 //        return new InMemoryUserDetailsManager(
 //                User.builder()
 //                        .username("admin")
 //                        .password(bCryptPasswordEncoder().encode("aaaaa"))
 //                        .authorities(Role.ADMIN.getAuthorities())
 //                        .build()
-////                User.builder()
-////                        .username("fack")
-////                        .password(bCryptPasswordEncoder().encode("aaause"))
-////                        .roles(Role.USER.name())
-////                        .build()
+
 //
 //        );
 //    }
