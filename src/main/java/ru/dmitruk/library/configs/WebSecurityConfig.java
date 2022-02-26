@@ -28,20 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder(12)
-//        {
-//            @Override
-//            public String encode(CharSequence charSequence) {
-//                return charSequence.toString();
-//            }
-//
-//            @Override
-//            public boolean matches(CharSequence rawPassword, String hashedPassword) {
-//                String hashedPassword2 = encode(rawPassword); // hash your rawPassword here
-//                return hashedPassword2.equals(hashedPassword);
-//            }
-//        }
-        ;
+        return new BCryptPasswordEncoder(12);
     }
 
     @Override
@@ -70,20 +57,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(daoAuthenticationProvider());
     }
 
-
-    //    @Override
-//    protected UserDetailsService userDetailsService() {
-////        System.out.println(bCryp.antMatchers(HttpMethod.POST, "/registrationClient").permitAll()tPasswordEncoder().encode("aaaaa"));
-//        return new InMemoryUserDetailsManager(
-//                User.builder()
-//                        .username("admin")
-//                        .password(bCryptPasswordEncoder().encode("aaaaa"))
-//                        .authorities(Role.ADMIN.getAuthorities())
-//                        .build()
-
-//
-//        );
-//    }
 
     public DaoAuthenticationProvider daoAuthenticationProvider(){
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();

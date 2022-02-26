@@ -1,0 +1,186 @@
+databaseChangeLog:
+#  - logicalFilePath: db/changelog/db.changelog-lesson1.yaml
+  - changeSet:
+      id: 11
+      author: anastasia
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: users_id
+                  value: 1
+              - column:
+                  name: username
+                  value: "admin"
+              - column:
+                  name: password
+                  value: "$2a$12$OP.QnY..K1TaSNpgL/XM1OoyqtJU7K5oWsdlMA8y/AbZJnC646jvy"
+              - column:
+                  name: status
+                  value: "ACTIVE"
+
+        - insert:
+            tableName: users
+            columns:
+                - column:
+                    name: users_id
+                    value: 2
+                - column:
+                    name: username
+                    value: "user"
+                - column:
+                    name: password
+                    value: "$2a$12$s6MA4qa/hLeoNEpI9BMni.PupvQrKiaJIGZnIWQqVUUM76ch08Va6"
+                - column:
+                    name: status
+                    value: "ACTIVE"
+        - insert:
+            tableName: roles
+            columns:
+                - column:
+                    name: roles_id
+                    value: "1"
+                - column:
+                    name: role_name
+                    value: "ADMIN"
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: roles_id
+                  value: "2"
+              - column:
+                  name: role_name
+                  value: "USER"
+        - insert:
+            tableName: users_roles
+            columns:
+              - column:
+                  name: users_id
+                  value: "1"
+              - column:
+                  name: roles_id
+                  value: "1"
+        - insert:
+            tableName: users_roles
+            columns:
+              - column:
+                  name: users_id
+                  value: "2"
+              - column:
+                  name: roles_id
+                  value: "2"
+  - changeSet:
+      id: 12
+      author: anastasia
+      changes:
+        - insert:
+            tableName: authors
+            columns:
+              - column:
+                  name: authors_id
+                  value: "1"
+              - column:
+                  name: author_name
+                  value: "Илья"
+              - column:
+                  name: author_surname
+                  value: "Ильф"
+              - column:
+                  name: description
+                  value: "Советский сатирик"
+        - insert:
+            tableName: authors
+            columns:
+              - column:
+                  name: authors_id
+                  value: "2"
+              - column:
+                  name: author_name
+                  value: "Евшений"
+              - column:
+                  name: author_surname
+                  value: "Петров"
+              - column:
+                  name: description
+                  value: "Советский сатирик"
+        - insert:
+            tableName: authors
+            columns:
+              - column:
+                  name: authors_id
+                  value: "3"
+              - column:
+                  name: author_name
+                  value: "Лев"
+              - column:
+                  name: author_surname
+                  value: "Толстой"
+              - column:
+                  name: description
+                  value: "Великий писатель"
+
+  - changeSet:
+      id: 13
+      author: anastasia
+      changes:
+        - insert:
+            tableName: books
+            columns:
+              - column:
+                  name: books_id
+                  value: "1"
+              - column:
+                  name: title
+                  value: "12 стульев"
+              - column:
+                  name: description
+                  value: "Книга о поиске бриллиантов"
+
+        - insert:
+            tableName: books
+            columns:
+              - column:
+                  name: books_id
+                  value: "2"
+              - column:
+                  name: title
+                  value: "Война и Мир"
+              - column:
+                  name: description
+                  value: "Роман эпопея"
+  - changeSet:
+      id: 14
+      author: anastasia
+      changes:
+        - insert:
+            tableName: books_authors
+            columns:
+              - column:
+                  name: authors_id
+                  value: "1"
+              - column:
+                  name: books_id
+                  value: "1"
+        - insert:
+            tableName: books_authors
+            columns:
+              - column:
+                  name: authors_id
+                  value: "2"
+              - column:
+                  name: books_id
+                  value: "1"
+        - insert:
+            tableName: books_authors
+            columns:
+              - column:
+                  name: authors_id
+                  value: "3"
+              - column:
+                  name: books_id
+                  value: "2"
+
+
+

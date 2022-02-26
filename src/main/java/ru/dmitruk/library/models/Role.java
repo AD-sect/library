@@ -1,28 +1,18 @@
 package ru.dmitruk.library.models;
 
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import lombok.Data;
 
-import java.util.Set;
-import java.util.stream.Collectors;
+import javax.persistence.*;
+@Data
+@Entity
+@Table(name = "roles")
+public class Role {
+    @Id
+    @Column(name = "roles_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-public enum Role {
-    USER(Set.of(Permission.USERS_READ)),
-    ADMIN(Set.of(Permission.USERS_READ,Permission.USERS_WRITE));
+    @Column(name = "role_name")
+    private String name;
 
-    private final Set<Permission> permissions;
-
-    Role(Set<Permission> permissions){
-
-        this.permissions = permissions;
-    }
-
-    public Set<Permission> getPermissions() {
-
-        return permissions;
-    }
-    public Set<SimpleGrantedAuthority> getAuthorities(){
-        return getPermissions().stream()
-                .map(p -> new SimpleGrantedAuthority(p.getPermission()))
-                .collect(Collectors.toSet());
-    }
 }
